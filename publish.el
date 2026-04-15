@@ -24,7 +24,7 @@
       '(	
         ("blog-posts"
          :base-directory "~/blog/org/posts"
-         :publishing-directory "~/blog/public"
+         :publishing-directory "~/blog/docs"
          :recursive t
          :publishing-function org-html-publish-to-html
          :with-author t
@@ -39,7 +39,7 @@
 
 	("blog-daily-notes"
          :base-directory "~/blog/org/daily-notes"
-         :publishing-directory "~/blog/public"
+         :publishing-directory "~/blog/docs"
          :recursive t
          :publishing-function org-html-publish-to-html
          :with-author t
@@ -50,7 +50,7 @@
 
 	("blog-cpp-notes"
          :base-directory "~/blog/org/cpp-notes"
-         :publishing-directory "~/blog/public"
+         :publishing-directory "~/blog/docs"
          :recursive t
          :publishing-function org-html-publish-to-html
          :with-author t
@@ -61,13 +61,13 @@
 
         ("blog-pages"
          :base-directory "~/blog/org/pages"
-         :publishing-directory "~/blog/public"
+         :publishing-directory "~/blog/docs"
          :publishing-function org-html-publish-to-html
 	 )
 
         ("blog-static"
          :base-directory "~/blog/org/static"
-         :publishing-directory "~/blog/public"
+         :publishing-directory "~/blog/docs"
          :recursive t
          :publishing-function org-html-publish-to-html)
 

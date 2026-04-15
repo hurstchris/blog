@@ -3,11 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-04-15 Wed 06:09 -->
+<!-- 2026-04-15 Wed 06:28 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Blog</title>
-<meta name="author" content="chris" />
+<title>Principal Component Analysis of a Constant Position Kalman Filter</title>
+<meta name="author" content="Chris Hurst" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -194,6 +194,38 @@
   .org-svg { }
 </style>
 <link rel="stylesheet" type="text/css" href="static/style.css"/>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </head>
 <body>
 <div id="preamble" class="status">
@@ -206,21 +238,182 @@
 </nav>
 </div>
 <div id="content" class="content">
-<h1 class="title">Blog</h1>
+<h1 class="title">Principal Component Analysis of a Constant Position Kalman Filter</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org78e8002">Introduction</a></li>
+<li><a href="#org903271b">Analysis</a></li>
+<li><a href="#orgb97be42">A new idea</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org78e8002" class="outline-2">
+<h2 id="org78e8002">Introduction</h2>
+<div class="outline-text-2" id="text-org78e8002">
 <p>
-This is my blog.  Feel free to look around.
+This is a short investigation on the principal components of
+</p>
+<ol class="org-ol">
+<li>Kalman filter posterior states</li>
+<li>Kalman filter residuals</li>
+</ol>
+<p>
+for a constant position Kalman filter.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org903271b" class="outline-2">
+<h2 id="org903271b">Analysis</h2>
+<div class="outline-text-2" id="text-org903271b">
+<p>
+First, let's look at an object not drifting which has random noise about (0,0).
 </p>
 
-<div id="outline-container-org3447c51" class="outline-2">
-<h2 id="org3447c51"><a href="daily-notes.html">Daily (Random) Notes</a></h2>
+
+<div id="org5ca7323" class="figure">
+<p><img src="file:///home/chris/org/test-blog/org/static/images/random_noise.png" alt="random_noise.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Random noise object.  This is how it <b>should</b> behave.  The Kalman filter slightly lags behind the measurements.</p>
 </div>
 
-<div id="outline-container-orgd707856" class="outline-2">
-<h2 id="orgd707856"><a href="cpp-notes.html">C++ Notes</a></h2>
+<p>
+The bottom subplot shows the residuals and the direction of the principal eigenvector.
+The eigenvalue ratio of the residuals is 3.45.  
+</p>
+
+
+<p>
+Now an object with drift, and little noise.
+</p>
+
+
+<div id="org7fb0d57" class="figure">
+<p><img src="file:///home/chris/org/test-blog/org/static/images/drift_smooth.png" alt="drift_smooth.png" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Drifting object with little noise.  The principal eigenvector for both residuals shows we get the direction of drift.</p>
 </div>
 
-<div id="outline-container-org63aa6e3" class="outline-2">
-<h2 id="org63aa6e3"><a href="posts-sitemap.html">Blog posts</a></h2>
+<p>
+Here the eigenvectors are pointing in the direction of drift.
+There is little variance in the perpendicular direction of the object's motion.
+The eigenvalue ratio of the residuals is 582.7. Quite large.
+</p>
+
+<p>
+But what about the case where an object is drifting but has fluctuations perpendicular to the motion of travel?
+</p>
+
+
+<div id="orgbced314" class="figure">
+<p><img src="file:///home/chris/org/test-blog/org/static/images/drift_with_up_and_down.png" alt="drift_with_up_and_down.png" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Drifting object with high variance in the perpendicular direction of travel.</p>
+</div>
+
+<p>
+The principal eigenvector for the residuals points in the direction of most variance, <i>not</i> the direction of drift.
+This is not quite what I expected before.
+The eigenvalue ratio is 10.5.
+</p>
+
+
+<p>
+Additionally, this means that if an object has high variance but zero mean, we also get misleading results.
+</p>
+
+
+<div id="org610a171" class="figure">
+<p><img src="file:///home/chris/org/test-blog/org/static/images/high_variance_y.png" alt="high_variance_y.png" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Object with no drift, but measurements bouncing up and down between y, with little change in x.</p>
+</div>
+
+<p>
+Again, misleading.
+The eigenvector ratio is 34445.5, which is way too much.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb97be42" class="outline-2">
+<h2 id="orgb97be42">A new idea</h2>
+<div class="outline-text-2" id="text-orgb97be42">
+<p>
+So it looks like some fancy EVD isn't going to work for these purposes.
+Let's try something else.
+</p>
+
+<p>
+The new plan is to take the mean of the residuals and then normalize them against their covariance.
+</p>
+\begin{equation}
+\tilde{S} = \frac{1}{N-1} \nu^{\text{T}} \nu
+\end{equation}
+<p>
+Perform EVD on the \(2\times2\) matrix \(\tilde{S}\) to find \(\tilde{S}^{-1/2}\).
+I am using \(\tilde{S}\) instead of \(S\) to distinguish between the innovation covariance of the kalman filter.
+This is a `sample' innovation covariance.
+</p>
+\begin{equation}
+\tilde{S}^{-1/2} = \Lambda D^{-1/2} \Lambda^{\text{T}}
+\end{equation}
+<p>
+And now the normalized innovations are
+</p>
+\begin{equation}
+\tilde{\nu}_i = \tilde{S}^{-1/2} \nu_i
+\end{equation}
+<p>
+And the drift vector can be found by taking the average of \(\tilde{\nu}_i\):
+</p>
+\begin{equation}
+\bar{d} = \frac{1}{N} \sum_i^N{\tilde{\nu}_i}
+\end{equation}
+
+<p>
+Lets plot this using the same scenarios as before.
+The bottom plots are the average drift vector.
+</p>
+
+
+<div id="org4d729e1" class="figure">
+<p><img src="file:///home/chris/org/test-blog/org/static/images/drift_random_noise.png" alt="drift_random_noise.png" />
+</p>
+<p><span class="figure-number">Figure 5: </span>Random noise object.  The drift magnitude is \(d=0.109\).</p>
+</div>
+
+
+
+<div id="org3d2a264" class="figure">
+<p><img src="file:///home/chris/org/test-blog/org/static/images/drift_drift_smooth.png" alt="drift_drift_smooth.png" />
+</p>
+<p><span class="figure-number">Figure 6: </span>Drifting object with little noise. The drift magnitude is \(d=0.912\).</p>
+</div>
+
+
+
+<div id="orged57068" class="figure">
+<p><img src="file:///home/chris/org/test-blog/org/static/images/drift_drift_with_up_and_down.png" alt="drift_drift_with_up_and_down.png" />
+</p>
+<p><span class="figure-number">Figure 7: </span>Drifting object with high variance in the perpendicular direction of travel. The drift magnitude is \(d=0.907\).</p>
+</div>
+
+
+
+<div id="org4c96059" class="figure">
+<p><img src="file:///home/chris/org/test-blog/org/static/images/drift_high_variance_y.png" alt="drift_high_variance_y.png" />
+</p>
+<p><span class="figure-number">Figure 8: </span>Object with no drift, but measurements bouncing up and down between y, with little change in x. The drift magnitude is \(d=0.205\).</p>
+</div>
+
+<p>
+This is a lot more in line with a metric for something that is drifting.
+</p>
+</div>
 </div>
 </div>
 </body>

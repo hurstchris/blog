@@ -3,11 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-04-15 Wed 06:09 -->
+<!-- 2026-04-15 Wed 06:28 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Two Forms of the Dot Product</title>
-<meta name="author" content="Gregory Gundersen" />
+<title>Derivation of the Kalman FIlter's F and Q</title>
+<meta name="author" content="Chris Hurst" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -238,259 +238,45 @@
 </nav>
 </div>
 <div id="content" class="content">
-<h1 class="title">Two Forms of the Dot Product</h1>
+<h1 class="title">Derivation of the Kalman FIlter's F and Q</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0763eb0">Introduction</a></li>
-<li><a href="#orgae7e20c">Algebraic definition</a></li>
-<li><a href="#org59cdb7b">Geometric definition</a></li>
-<li><a href="#org7f846b9">Goal</a></li>
-<li><a href="#org0821901">Proof idea</a></li>
-<li><a href="#org8bb52e2">Expand the expression</a></li>
-<li><a href="#org856cf2a">Apply the law of cosines</a></li>
-<li><a href="#org5f3eb71">Equate the two expressions</a></li>
-<li><a href="#orga7806e2">Interpretation</a></li>
-<li><a href="#org6fdcb16">Summary</a></li>
+<li><a href="#org0ca5a5a">First</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org0763eb0" class="outline-2">
-<h2 id="org0763eb0">Introduction</h2>
-<div class="outline-text-2" id="text-org0763eb0">
+<div id="outline-container-org0ca5a5a" class="outline-2">
+<h2 id="org0ca5a5a">First</h2>
+<div class="outline-text-2" id="text-org0ca5a5a">
 <p>
-The dot product is often introduced in two ways:
+Start with the linear first order ODE.
 </p>
 
-<ol class="org-ol">
-<li>Algebraic definition</li>
-<li>Geometric definition</li>
-</ol>
+\begin{equation}
+\frac{\partial \mathbf{x}(t)}{\partial t} = \mathbf{A} \mathbf{x}(t) + \mathbf{B} w
+\end{equation}
 
 <p>
-The goal is to show that these definitions are equivalent.
+To solve, let the integrating factor be \(e^{At}\).  Multiply this to both sides:
 </p>
-</div>
-</div>
-
-<div id="outline-container-orgae7e20c" class="outline-2">
-<h2 id="orgae7e20c">Algebraic definition</h2>
-<div class="outline-text-2" id="text-orgae7e20c">
+\begin{equation}
+e^{At} \frac{\partial \mathbf{x}(t)}{\partial t} - e^{At} \mathbf{A} \mathbf{x}(t)= e^{At}  \mathbf{B} w
+\end{equation}
 <p>
-Let
+The product rule allows us to do this:
 </p>
-
+\begin{equation}
+e^{At} \frac{\partial \mathbf{x}(t)}{\partial t} + e^{At} \mathbf{A} \mathbf{x}(t)=\frac{\partial}{\partial{t}} \mathbf{x}(t) e^{At}
+\end{equation}
 <p>
-\[
-\mathbf{a} = (a_1, a_2, \dots, a_n)
-\]
+So, we can get
 </p>
-
-<p>
-\[
-\mathbf{b} = (b_1, b_2, \dots, b_n)
-\]
-</p>
-
-<p>
-The dot product is defined as
-</p>
-
-<p>
-\[
-\mathbf{a} \cdot \mathbf{b} =
-\sum_{i=1}^{n} a_i b_i
-\]
-</p>
-</div>
-</div>
-
-<div id="outline-container-org59cdb7b" class="outline-2">
-<h2 id="org59cdb7b">Geometric definition</h2>
-<div class="outline-text-2" id="text-org59cdb7b">
-<p>
-The dot product can also be written as
-</p>
-
-<p>
-\[
-\mathbf{a} \cdot \mathbf{b} = ||\mathbf{a}|| \, ||\mathbf{b}|| \cos(\theta)
-\]
-</p>
-
-<p>
-where
-</p>
-
-<ul class="org-ul">
-<li>\(||\mathbf{a}||\) is the magnitude of vector a</li>
-<li>\(||\mathbf{b}||\) is the magnitude of vector b</li>
-<li>\(\theta\) is the angle between them</li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-org7f846b9" class="outline-2">
-<h2 id="org7f846b9">Goal</h2>
-<div class="outline-text-2" id="text-org7f846b9">
-<p>
-Show that
-</p>
-
-<p>
-\[
-\sum_{i=1}^{n} a_i b_i = ||\mathbf{a}|| \, ||\mathbf{b}|| \cos(\theta)
-\]
-</p>
-</div>
-</div>
-
-<div id="outline-container-org0821901" class="outline-2">
-<h2 id="org0821901">Proof idea</h2>
-<div class="outline-text-2" id="text-org0821901">
-<p>
-The proof relies on the law of cosines.
-</p>
-
-<p>
-Consider the vector
-</p>
-
-<p>
-\[
-\mathbf{c} = \mathbf{a} - \mathbf{b}
-\]
-</p>
-
-<p>
-Then
-</p>
-
-
-<p>
-\[
-(|| \mathbf{c}||) ^2 = (\mathbf{a} - \mathbf{b}) \cdot (\mathbf{a} - \mathbf{b})
-\]
-</p>
-</div>
-</div>
-
-<div id="outline-container-org8bb52e2" class="outline-2">
-<h2 id="org8bb52e2">Expand the expression</h2>
-<div class="outline-text-2" id="text-org8bb52e2">
-<p>
-Expanding gives
-</p>
-
-<p>
-\[
-(||\mathbf{a}||)^2 + (||\mathbf{b}||)^2 - 2(\mathbf{a} \cdot \mathbf{b})
-\]
-</p>
-</div>
-</div>
-
-<div id="outline-container-org856cf2a" class="outline-2">
-<h2 id="org856cf2a">Apply the law of cosines</h2>
-<div class="outline-text-2" id="text-org856cf2a">
-<p>
-From geometry,
-</p>
-
-<p>
-\[ ||\mathbf{c}||^2 =||\mathbf{a}||^2 +||\mathbf{b}||^2-2 ||\mathbf{a}|| ||\mathbf{b}|| \cos(\theta)
-\]
-</p>
-</div>
-</div>
-
-<div id="outline-container-org5f3eb71" class="outline-2">
-<h2 id="org5f3eb71">Equate the two expressions</h2>
-<div class="outline-text-2" id="text-org5f3eb71">
-<p>
-Comparing the expressions gives
-</p>
-
-<p>
-\[
-\mathbf{a} &sdot; \mathbf{b}
-=
-</p>
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-</colgroup>
-<tbody>
-<tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">\mathbf{a}</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">\mathbf{b}</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">cos(&theta;)</td>
-</tr>
-</tbody>
-</table>
-<p>
-\]
-</p>
-</div>
-</div>
-
-<div id="outline-container-orga7806e2" class="outline-2">
-<h2 id="orga7806e2">Interpretation</h2>
-<div class="outline-text-2" id="text-orga7806e2">
-<p>
-The dot product measures how aligned two vectors are.
-</p>
-
-<p>
-Special cases:
-</p>
-
-<ul class="org-ul">
-<li>\(\theta = 0\): vectors aligned → maximum dot product</li>
-<li>\(\theta = \pi/2\): orthogonal → dot product = 0</li>
-<li>\(\theta = \pi\): opposite directions → negative dot product</li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-org6fdcb16" class="outline-2">
-<h2 id="org6fdcb16">Summary</h2>
-<div class="outline-text-2" id="text-org6fdcb16">
-<p>
-Two equivalent views of the dot product:
-</p>
-
-<ol class="org-ol">
-<li>Algebraic: sum of component-wise products</li>
-<li>Geometric: product of magnitudes scaled by cosine of angle</li>
-</ol>
-
-<p>
-Both represent the same operation.
-</p>
+\begin{equation}
+\frac{\partial}{\partial{t}} \mathbf{x}(t) e^{At} = 
+\end{equation}
 </div>
 </div>
 </div>

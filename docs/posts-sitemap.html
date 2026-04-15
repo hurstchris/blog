@@ -3,11 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-04-15 Wed 06:09 -->
+<!-- 2026-04-15 Wed 06:28 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Cpp notes</title>
-<meta name="author" content="Chris Hurst" />
+<title>Posts</title>
+<meta name="author" content="chris" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -206,109 +206,14 @@
 </nav>
 </div>
 <div id="content" class="content">
-<h1 class="title">Cpp notes</h1>
-<div id="table-of-contents" role="doc-toc">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents" role="doc-toc">
-<ul>
-<li><a href="#orga972d9b">State design pattern</a></li>
+<h1 class="title">Posts</h1>
+<ul class="org-ul">
+<li><a href="Test_blog.html">This is a test blog and stuff</a></li>
+<li><a href="PCA_cp_kf.html">Principal Component Analysis of a Constant Position Kalman Filter</a></li>
+<li><a href="dot_product.html">Two Forms of the Dot Product</a></li>
+<li><a href="kf_derivation.html">Derivation of the Kalman FIlter's F and Q</a></li>
+<li><a href="cpp_notes.html">Cpp notes</a></li>
 </ul>
-</div>
-</div>
-
-<div id="outline-container-orga972d9b" class="outline-2">
-<h2 id="orga972d9b">State design pattern</h2>
-<div class="outline-text-2" id="text-orga972d9b">
-<p>
-This is an example of the state design pattern. 
-</p>
-
-<div class="org-src-container">
-<pre class="src src-C++"><span style="color: #ff7f86;">#include</span> <span style="color: #2fafff;">&lt;iostream&gt;</span>
-<span style="color: #ff7f86;">#include</span> <span style="color: #2fafff;">&lt;vector&gt;</span>
-
-<span style="color: #79a8ff; font-weight: bold;">struct</span> <span style="color: #11c777; font-weight: bold;">Track_state</span>;
-<span style="color: #79a8ff; font-weight: bold;">struct</span> <span style="color: #11c777; font-weight: bold;">Candidate</span>;
-<span style="color: #79a8ff; font-weight: bold;">struct</span> <span style="color: #11c777; font-weight: bold;">Confirmed</span>;
-<span style="color: #79a8ff; font-weight: bold;">struct</span> <span style="color: #11c777; font-weight: bold;">Terminated</span>;
-
-<span style="color: #79a8ff; font-weight: bold;">struct</span> <span style="color: #11c777; font-weight: bold;">Track</span> {
-  <span style="color: #f78fe7;">Track</span>();
-  <span style="color: #11c777; font-weight: bold;">int</span> <span style="color: #4ae2f0;">feature</span>{0};
-  <span style="color: #11c777; font-weight: bold;">Track_state</span> *<span style="color: #4ae2f0;">state</span>{<span style="color: #b6a0ff;">nullptr</span>};
-  <span style="color: #11c777; font-weight: bold;">void</span> <span style="color: #f78fe7;">check</span>();
-  <span style="color: #11c777; font-weight: bold;">void</span> <span style="color: #f78fe7;">change_state</span>(<span style="color: #11c777; font-weight: bold;">Track_state</span> *<span style="color: #4ae2f0;">new_state</span>) { state = new_state; }
-};
-
-<span style="color: #79a8ff; font-weight: bold;">struct</span> <span style="color: #11c777; font-weight: bold;">Track_state</span> {
-  <span style="color: #f78fe7;">Track_state</span>(<span style="color: #11c777; font-weight: bold;">Track</span> *<span style="color: #4ae2f0;">in_track</span>) { track = in_track; };
-
-  <span style="color: #79a8ff; font-weight: bold;">virtual</span> <span style="color: #11c777; font-weight: bold;">void</span> <span style="color: #f78fe7;">check</span>() = 0;
-
-  <span style="color: #11c777; font-weight: bold;">Track</span> *<span style="color: #4ae2f0;">track</span>;
-};
-
-<span style="color: #79a8ff; font-weight: bold;">struct</span> <span style="color: #11c777; font-weight: bold;">Candidate</span> : <span style="color: #11c777; font-weight: bold;">Track_state</span> {
-  <span style="color: #f78fe7;">Candidate</span>(<span style="color: #11c777; font-weight: bold;">Track</span> *<span style="color: #4ae2f0;">in_track</span>) : Track_state(in_track){};
-  <span style="color: #11c777; font-weight: bold;">void</span> <span style="color: #f78fe7;">check</span>() <span style="color: #79a8ff; font-weight: bold;">override</span>;
-};
-
-<span style="color: #79a8ff; font-weight: bold;">struct</span> <span style="color: #11c777; font-weight: bold;">Confirmed</span> : <span style="color: #11c777; font-weight: bold;">Track_state</span> {
-  <span style="color: #f78fe7;">Confirmed</span>(<span style="color: #11c777; font-weight: bold;">Track</span> *<span style="color: #4ae2f0;">in_track</span>) : Track_state(in_track){};
-  <span style="color: #11c777; font-weight: bold;">void</span> <span style="color: #f78fe7;">check</span>() <span style="color: #79a8ff; font-weight: bold;">override</span>;
-};
-
-<span style="color: #79a8ff; font-weight: bold;">struct</span> <span style="color: #11c777; font-weight: bold;">Terminated</span> : <span style="color: #11c777; font-weight: bold;">Track_state</span> {
-  <span style="color: #f78fe7;">Terminated</span>(<span style="color: #11c777; font-weight: bold;">Track</span> *<span style="color: #4ae2f0;">in_track</span>) : Track_state(in_track){};
-  <span style="color: #11c777; font-weight: bold;">void</span> <span style="color: #f78fe7;">check</span>() <span style="color: #79a8ff; font-weight: bold;">override</span>;
-};
-
-<span style="color: #b6a0ff;">Track</span>::<span style="color: #f78fe7;">Track</span>() { state = <span style="color: #79a8ff; font-weight: bold;">new</span> <span style="color: #11c777; font-weight: bold;">Candidate</span>(<span style="color: #79a8ff; font-weight: bold;">this</span>); };
-
-<span style="color: #11c777; font-weight: bold;">void</span> <span style="color: #b6a0ff;">Track</span>::<span style="color: #f78fe7;">check</span>() { state-&gt;check(); };
-
-<span style="color: #11c777; font-weight: bold;">void</span> <span style="color: #b6a0ff;">Candidate</span>::<span style="color: #f78fe7;">check</span>() {
-  <span style="color: #b6a0ff;">std</span>::cout &lt;&lt; <span style="color: #2fafff;">"Called check in Candidate\n"</span>;
-  <span style="color: #79a8ff; font-weight: bold;">if</span> (track-&gt;feature &gt; 2) {
-    <span style="color: #b6a0ff;">std</span>::cout &lt;&lt; <span style="color: #2fafff;">"Changing to Confirmed\n"</span>;
-    track-&gt;change_state(<span style="color: #79a8ff; font-weight: bold;">new</span> <span style="color: #11c777; font-weight: bold;">Confirmed</span>(track));
-  }
-};
-
-<span style="color: #11c777; font-weight: bold;">void</span> <span style="color: #b6a0ff;">Confirmed</span>::<span style="color: #f78fe7;">check</span>() {
-  <span style="color: #b6a0ff;">std</span>::cout &lt;&lt; <span style="color: #2fafff;">"Called check in Confirmed\n"</span>;
-  <span style="color: #79a8ff; font-weight: bold;">if</span> (track-&gt;feature &gt; 4) {
-    <span style="color: #b6a0ff;">std</span>::cout &lt;&lt; <span style="color: #2fafff;">"Changing to Terminated\n"</span>;
-    track-&gt;change_state(<span style="color: #79a8ff; font-weight: bold;">new</span> <span style="color: #11c777; font-weight: bold;">Terminated</span>(track));
-  }
-};
-
-<span style="color: #11c777; font-weight: bold;">void</span> <span style="color: #b6a0ff;">Terminated</span>::<span style="color: #f78fe7;">check</span>() { <span style="color: #b6a0ff;">std</span>::cout &lt;&lt; <span style="color: #2fafff;">"Called check in Terminated\n"</span>; };
-
-<span style="color: #11c777; font-weight: bold;">int</span> <span style="color: #f78fe7;">main</span>() {
-
-  <span style="color: #11c777; font-weight: bold;">Track</span> <span style="color: #4ae2f0;">track</span>;
-  <span style="color: #79a8ff; font-weight: bold;">for</span> (<span style="color: #11c777; font-weight: bold;">int</span> <span style="color: #4ae2f0;">i</span> = 0; i &lt; 7; ++i) {
-    track.feature = i;
-    track.check();
-  }
-}
-</pre>
-</div>
-
-<pre class="example">
-Called check in Candidate
-Called check in Candidate
-Called check in Candidate
-Called check in Candidate
-Changing to Confirmed
-Called check in Confirmed
-Called check in Confirmed
-Changing to Terminated
-Called check in Terminated
-</pre>
-</div>
-</div>
 </div>
 </body>
 </html>

@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-04-15 Wed 06:09 -->
+<!-- 2026-04-15 Wed 06:28 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Derivation of the Kalman FIlter's F and Q</title>
+<title>Cpp notes</title>
 <meta name="author" content="Chris Hurst" />
 <meta name="generator" content="Org Mode" />
 <style>
@@ -194,38 +194,6 @@
   .org-svg { }
 </style>
 <link rel="stylesheet" type="text/css" href="static/style.css"/>
-<script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
-    },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
-</script>
-
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
 </head>
 <body>
 <div id="preamble" class="status">
@@ -238,45 +206,31 @@
 </nav>
 </div>
 <div id="content" class="content">
-<h1 class="title">Derivation of the Kalman FIlter's F and Q</h1>
+<h1 class="title">Cpp notes</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0ca5a5a">First</a></li>
+<li><a href="#org87a244a">General notes</a>
+<ul>
+<li><a href="#orga6dc754">Clang-format</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org0ca5a5a" class="outline-2">
-<h2 id="org0ca5a5a">First</h2>
-<div class="outline-text-2" id="text-org0ca5a5a">
+<div id="outline-container-org87a244a" class="outline-2">
+<h2 id="org87a244a">General notes</h2>
+<div class="outline-text-2" id="text-org87a244a">
+</div>
+<div id="outline-container-orga6dc754" class="outline-3">
+<h3 id="orga6dc754">Clang-format</h3>
+<div class="outline-text-3" id="text-orga6dc754">
 <p>
-Start with the linear first order ODE.
+Clang-format makes it easy for others to use your repo automatically
 </p>
-
-\begin{equation}
-\frac{\partial \mathbf{x}(t)}{\partial t} = \mathbf{A} \mathbf{x}(t) + \mathbf{B} w
-\end{equation}
-
-<p>
-To solve, let the integrating factor be \(e^{At}\).  Multiply this to both sides:
-</p>
-\begin{equation}
-e^{At} \frac{\partial \mathbf{x}(t)}{\partial t} - e^{At} \mathbf{A} \mathbf{x}(t)= e^{At}  \mathbf{B} w
-\end{equation}
-<p>
-The product rule allows us to do this:
-</p>
-\begin{equation}
-e^{At} \frac{\partial \mathbf{x}(t)}{\partial t} + e^{At} \mathbf{A} \mathbf{x}(t)=\frac{\partial}{\partial{t}} \mathbf{x}(t) e^{At}
-\end{equation}
-<p>
-So, we can get
-</p>
-\begin{equation}
-\frac{\partial}{\partial{t}} \mathbf{x}(t) e^{At} = 
-\end{equation}
+</div>
 </div>
 </div>
 </div>
