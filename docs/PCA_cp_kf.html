@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-04-15 Wed 21:38 -->
+<!-- 2026-04-15 Wed 21:43 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Principal Component Analysis of a Constant Position Kalman Filter</title>
@@ -275,7 +275,7 @@ First, let's look at an object not drifting which has random noise about (0,0).
 
 
 <div id="org5ca7323" class="figure">
-<p><img src="file:///home/chris/org/test-blog/org/static/images/random_noise.png" alt="random_noise.png" />
+<p><img src="static/images/random_noise.png" alt="random_noise.png" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Random noise object.  This is how it <b>should</b> behave.  The Kalman filter slightly lags behind the measurements.</p>
 </div>
@@ -291,8 +291,8 @@ Now an object with drift, and little noise.
 </p>
 
 
-<div id="orgbced314" class="figure">
-<p><img src="file:///home/chris/org/test-blog/org/static/images/drift_smooth.png" alt="drift_smooth.png" />
+<div id="org9acf342" class="figure">
+<p><img src="static/images/drift_smooth.png" alt="drift_smooth.png" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Drifting object with little noise.  The principal eigenvector for both residuals shows we get the direction of drift.</p>
 </div>
@@ -308,8 +308,8 @@ But what about the case where an object is drifting but has fluctuations perpend
 </p>
 
 
-<div id="org59d6c76" class="figure">
-<p><img src="file:///home/chris/org/test-blog/org/static/images/drift_with_up_and_down.png" alt="drift_with_up_and_down.png" />
+<div id="org4801018" class="figure">
+<p><img src="static/images/drift_with_up_and_down.png" alt="drift_with_up_and_down.png" />
 </p>
 <p><span class="figure-number">Figure 3: </span>Drifting object with high variance in the perpendicular direction of travel.</p>
 </div>
@@ -326,8 +326,8 @@ Additionally, this means that if an object has high variance but zero mean, we a
 </p>
 
 
-<div id="org4c96059" class="figure">
-<p><img src="file:///home/chris/org/test-blog/org/static/images/high_variance_y.png" alt="high_variance_y.png" />
+<div id="org92c7d12" class="figure">
+<p><img src="static/images/high_variance_y.png" alt="high_variance_y.png" />
 </p>
 <p><span class="figure-number">Figure 4: </span>Object with no drift, but measurements bouncing up and down between y, with little change in x.</p>
 </div>
@@ -380,32 +380,32 @@ The bottom plots are the average drift vector.
 </p>
 
 
-<div id="orgd078e11" class="figure">
-<p><img src="file:///home/chris/org/test-blog/org/static/images/drift_random_noise.png" alt="drift_random_noise.png" />
+<div id="org4f1b080" class="figure">
+<p><img src="static/images/drift_random_noise.png" alt="drift_random_noise.png" />
 </p>
 <p><span class="figure-number">Figure 5: </span>Random noise object.  The drift magnitude is \(d=0.109\).</p>
 </div>
 
 
 
-<div id="org5537d7c" class="figure">
-<p><img src="file:///home/chris/org/test-blog/org/static/images/drift_drift_smooth.png" alt="drift_drift_smooth.png" />
+<div id="org10323e9" class="figure">
+<p><img src="static/images/drift_drift_smooth.png" alt="drift_drift_smooth.png" />
 </p>
 <p><span class="figure-number">Figure 6: </span>Drifting object with little noise. The drift magnitude is \(d=0.912\).</p>
 </div>
 
 
 
-<div id="org7252065" class="figure">
-<p><img src="file:///home/chris/org/test-blog/org/static/images/drift_drift_with_up_and_down.png" alt="drift_drift_with_up_and_down.png" />
+<div id="org4576e85" class="figure">
+<p><img src="static/images/drift_drift_with_up_and_down.png" alt="drift_drift_with_up_and_down.png" />
 </p>
 <p><span class="figure-number">Figure 7: </span>Drifting object with high variance in the perpendicular direction of travel. The drift magnitude is \(d=0.907\).</p>
 </div>
 
 
 
-<div id="org55a009c" class="figure">
-<p><img src="file:///home/chris/org/test-blog/org/static/images/drift_high_variance_y.png" alt="drift_high_variance_y.png" />
+<div id="org16d8591" class="figure">
+<p><img src="static/images/drift_high_variance_y.png" alt="drift_high_variance_y.png" />
 </p>
 <p><span class="figure-number">Figure 8: </span>Object with no drift, but measurements bouncing up and down between y, with little change in x. The drift magnitude is \(d=0.205\).</p>
 </div>

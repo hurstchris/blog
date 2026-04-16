@@ -16,17 +16,16 @@ First, let's look at an object not drifting which has random noise about (0,0).
 
 #+CAPTION: Random noise object.  This is how it *should* behave.  The Kalman filter slightly lags behind the measurements.
 #+NAME: fig:randomnoise
-[[file:~/org/test-blog/org/static/images/random_noise.png]]
+[[file:static/images/random_noise.png]]
 
 The bottom subplot shows the residuals and the direction of the principal eigenvector.
 The eigenvalue ratio of the residuals is 3.45.  
-
 
 Now an object with drift, and little noise.
 
 #+CAPTION: Drifting object with little noise.  The principal eigenvector for both residuals shows we get the direction of drift.
 #+NAME: fig:drift_no_noise
-[[file:~/org/test-blog/org/static/images/drift_smooth.png]]
+[[file:static/images/drift_smooth.png]]
 
 Here the eigenvectors are pointing in the direction of drift.
 There is little variance in the perpendicular direction of the object's motion.
@@ -36,7 +35,7 @@ But what about the case where an object is drifting but has fluctuations perpend
 
 #+CAPTION: Drifting object with high variance in the perpendicular direction of travel.
 #+NAME: fig:drift_no_noise
-[[file:~/org/test-blog/org/static/images/drift_with_up_and_down.png]]
+[[file:static/images/drift_with_up_and_down.png]]
 
 The principal eigenvector for the residuals points in the direction of most variance, /not/ the direction of drift.
 This is not quite what I expected before.
@@ -47,7 +46,7 @@ Additionally, this means that if an object has high variance but zero mean, we a
 
 #+CAPTION: Object with no drift, but measurements bouncing up and down between y, with little change in x.
 #+NAME: fig:high_var_y
-[[file:~/org/test-blog/org/static/images/high_variance_y.png]]
+[[file:static/images/high_variance_y.png]]
 
 Again, misleading.
 The eigenvector ratio is 34445.5, which is way too much.
@@ -80,22 +79,22 @@ The bottom plots are the average drift vector.
 
 #+CAPTION: Random noise object.  The drift magnitude is $d=0.109$.
 #+NAME: fig:high_var_y
-[[file:~/org/test-blog/org/static/images/drift_random_noise.png]]
+[[file:static/images/drift_random_noise.png]]
 
 
 #+CAPTION: Drifting object with little noise. The drift magnitude is $d=0.912$.
 #+NAME: fig:high_var_y
-[[file:~/org/test-blog/org/static/images/drift_drift_smooth.png]]
+[[file:static/images/drift_drift_smooth.png]]
 
 
 #+CAPTION: Drifting object with high variance in the perpendicular direction of travel. The drift magnitude is $d=0.907$.
 #+NAME: fig:high_var_y
-[[file:~/org/test-blog/org/static/images/drift_drift_with_up_and_down.png]]
+[[file:static/images/drift_drift_with_up_and_down.png]]
 
 
 #+CAPTION: Object with no drift, but measurements bouncing up and down between y, with little change in x. The drift magnitude is $d=0.205$.
 #+NAME: fig:high_var_y
-[[file:~/org/test-blog/org/static/images/drift_high_variance_y.png]]
+[[file:static/images/drift_high_variance_y.png]]
 
 This is a lot more in line with a metric for something that is drifting.
 
